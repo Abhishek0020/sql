@@ -1,0 +1,167 @@
+SQL> -- DML ALL COMANDS ARE TEMPORARY DML HAVE 3 COMANDS INSERT,UPDATE,DELETE
+SQL> INSERT EMP
+  2  VALUES (1300,'SANU','DEVELOPER',1800,'11-JAN-2001',56789.55,99.34,55);
+INSERT EMP
+       *
+ERROR at line 1:
+ORA-00925: missing INTO keyword 
+
+
+SQL> INSERT INTO EMP
+  2  VALUES (1300,'SANU','DEVELOPER',1800,'11-JAN-2001',56789.55,99.34,55);
+INSERT INTO EMP
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.FK_DEPTNO) violated - parent key not found 
+
+
+SQL> INSERT INTO EMP
+  2  VALUES (1300,'SANU','DEVELOPER',1800,'11-JAN-2001',56789.55,99.34,10);
+
+1 row created.
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      1300 SANU       DEVELOPER       1800 11-JAN-01   56789.55      99.34         10                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+15 rows selected.
+
+SQL> INSERT INTO DEPT
+  2  VALUES (50,'SOFTWARE','INDIA');
+
+1 row created.
+
+SQL> SELECT * FROM DEPT;
+
+    DEPTNO DNAME          LOC                                                                                                               
+---------- -------------- -------------                                                                                                     
+        50 SOFTWARE       INDIA                                                                                                             
+        10 ACCOUNTING     NEW YORK                                                                                                          
+        20 RESEARCH       DALLAS                                                                                                            
+        30 SALES          CHICAGO                                                                                                           
+        40 OPERATIONS     BOSTON                                                                                                            
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      1300 SANU       DEVELOPER       1800 11-JAN-01   56789.55      99.34         10                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+15 rows selected.
+
+SQL> INSERT INTO EMP
+  2  VALUES (1001,'RAJU','DEVELOPER',1800,'10-JAN-2001',4567,80,50);
+
+1 row created.
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      1300 SANU       DEVELOPER       1800 11-JAN-01   56789.55      99.34         10                                                       
+      1001 RAJU       DEVELOPER       1800 10-JAN-01       4567         80         50                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+16 rows selected.
+
+SQL> UPDATE EMP
+  2  SET SAL=8000
+  3  WHERE ENAME='SANU';
+
+1 row updated.
+
+SQL> 
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      1300 SANU       DEVELOPER       1800 11-JAN-01       8000      99.34         10                                                       
+      1001 RAJU       DEVELOPER       1800 10-JAN-01       4567         80         50                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+16 rows selected.
+
+SQL> DELETE FROM EMP
+  2  WHERE ENAME='RAJU';
+
+1 row deleted.
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      1300 SANU       DEVELOPER       1800 11-JAN-01       8000      99.34         10                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+15 rows selected.
+
+SQL> SPOOL OFF

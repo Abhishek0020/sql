@@ -1,0 +1,392 @@
+SQL> SET PAGES 140
+SQL> SET LINES 140
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+14 rows selected.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+
+6 rows selected.
+
+SQL> -- WITHOUT CONSTRAINTS
+SQL> CREATE TABLE WORKER (
+  2  NAME VARCHAR(20),
+  3  ID NUMBER (4),
+  4  SALARY NUMBER (6,2),
+  5  ADDRESS VARCHAR(25),
+  6  PHNO NUMBER (10));
+
+Table created.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+
+7 rows selected.
+
+SQL> DESC WORKER;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ NAME                                                                                   VARCHAR2(20)
+ ID                                                                                     NUMBER(4)
+ SALARY                                                                                 NUMBER(6,2)
+ ADDRESS                                                                                VARCHAR2(25)
+ PHNO                                                                                   NUMBER(10)
+
+SQL> INSERT INTO WORKER
+  2  VALUES ('SANU',1,3500,'ODISHA CUTTACK',9861160892);
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> -- CREATION OF TABLE WITH CONSTRAINT
+SQL> CREATE TABLE PRODUCT(
+  2  PNAME VARCHAR(20) NOT NULL,
+  3  PRICE NUMBER(6,2) DEFAULT (100.25),
+  4  EXDATE DATE CHECK (EXDATE BETWEEN '01-JAN-2021' AND '01-JAN-2025'));
+
+Table created.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+
+8 rows selected.
+
+SQL> DESC PRODUCT;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ PNAME                                                                         NOT NULL VARCHAR2(20)
+ PRICE                                                                                  NUMBER(6,2)
+ EXDATE                                                                                 DATE
+
+SQL> INSERT INTO PRODUCT
+  2  VALUES ('CHOCOLATE',150,'15-JAN-2024');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT
+  2  VALUES ('CHOCOLATE',120.25,'17-DEC-2024');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT
+  2  VALUES (NULL,120.25,'17-DEC-2024');
+VALUES (NULL,120.25,'17-DEC-2024')
+        *
+ERROR at line 2:
+ORA-01400: cannot insert NULL into ("SCOTT"."PRODUCT"."PNAME") 
+
+
+SQL> DESC PRODUCT;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ PNAME                                                                         NOT NULL VARCHAR2(20)
+ PRICE                                                                                  NUMBER(6,2)
+ EXDATE                                                                                 DATE
+
+SQL> INSERT INTO PRODUCT (PNAME,EXDATE)
+  2  VALUES ('CHIPS','21-NOV-2023');
+
+1 row created.
+
+SQL> SELECT * FROM PRODUCT;
+
+PNAME                     PRICE EXDATE                                                                                                      
+-------------------- ---------- ---------                                                                                                   
+CHOCOLATE                   150 15-JAN-24                                                                                                   
+CHOCOLATE                120.25 17-DEC-24                                                                                                   
+CHIPS                    100.25 21-NOV-23                                                                                                   
+
+SQL> INSERT INTO PRODUCT
+  2  VALUES ('ICE CREAM',180,'19-MAR-2026');
+INSERT INTO PRODUCT
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C007006) violated 
+
+
+SQL> INSERT INTO PRODUCT
+  2  VALUES ('ICE CREAM',180,'19-MAR-2020');
+INSERT INTO PRODUCT
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C007006) violated 
+
+
+SQL> INSERT INTO PRODUCT
+  2  VALUES ('ICE CREAM',180,'19-MAR-2022');
+
+1 row created.
+
+SQL> SELECT * FROM PRODUCT;
+
+PNAME                     PRICE EXDATE                                                                                                      
+-------------------- ---------- ---------                                                                                                   
+CHOCOLATE                   150 15-JAN-24                                                                                                   
+CHOCOLATE                120.25 17-DEC-24                                                                                                   
+CHIPS                    100.25 21-NOV-23                                                                                                   
+ICE CREAM                   180 19-MAR-22                                                                                                   
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> INSERT INTO PRODUCT
+  2  VALUES ('ICE CREAM',180,NULL);
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM PRODUCT;
+
+PNAME                     PRICE EXDATE                                                                                                      
+-------------------- ---------- ---------                                                                                                   
+CHOCOLATE                   150 15-JAN-24                                                                                                   
+CHOCOLATE                120.25 17-DEC-24                                                                                                   
+CHIPS                    100.25 21-NOV-23                                                                                                   
+ICE CREAM                   180 19-MAR-22                                                                                                   
+ICE CREAM                   180                                                                                                             
+
+SQL> --- CREATION OF STUDENT TABLE
+SQL> CREATE TABLE STUDENT(
+  2  SID NUMBER (4) PRIMARY KEY,
+  3  SNAME VARCHAR (20) NOT NULL,
+  4  ADDRESS VARCHAR (30) DEFAULT ('MARATHALLI'),
+  5  PHNO NUMBER(10) UNIQUE,
+  6  GENDER VARCHAR(6) CHECK (GENDER IN ('M','F')));
+
+Table created.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+STUDENT                        TABLE                                                                                                        
+
+9 rows selected.
+
+SQL> INSERT INTO STUDENT
+  2  VALUES (1,'RAM','KR PURAM','8888800000','M');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT
+  2  VALUES (1,'RAM','KR PURAM','8888800000','M');
+INSERT INTO STUDENT
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C007009) violated 
+
+
+SQL> INSERT INTO STUDENT
+  2  VALUES (NULL,'SIMA','WHITE FIELD','986727432','F');
+VALUES (NULL,'SIMA','WHITE FIELD','986727432','F')
+        *
+ERROR at line 2:
+ORA-01400: cannot insert NULL into ("SCOTT"."STUDENT"."SID") 
+
+
+SQL> INSERT INTO STUDENT (SID,SNAME)
+  2  VALUES (3,'DEEP');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT
+  2  VALUES (14,'LALIT','TIN FACTORY',8787087787,'M');
+
+1 row created.
+
+SQL> --CREATE PARENT-CHILD EXAMPLE
+SQL> CREATE TABLE COUR(
+  2  CID NUMBER(4) PRIMARY KEY,
+  3  CNAME VARCHAR (20),
+  4  TNAME VARCHAR (25));
+
+Table created.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+STUDENT                        TABLE                                                                                                        
+COUR                           TABLE                                                                                                        
+
+10 rows selected.
+
+SQL> INSERT INTO COUR
+  2  VALUES (101,'JAVA','RAVEESH');
+
+1 row created.
+
+SQL> INSERT INTO COUR
+  2  VALUES (102,'WEB','KISHORE');
+
+1 row created.
+
+SQL> SELECT * FROM COUR;
+
+       CID CNAME                TNAME                                                                                                       
+---------- -------------------- -------------------------                                                                                   
+       101 JAVA                 RAVEESH                                                                                                     
+       102 WEB                  KISHORE                                                                                                     
+
+SQL> --CREATE A CHILD TABLE
+SQL> CREATE TABLE STUD(
+  2  SID NUMBER(4) PRIMARY KEY,
+  3  SNAME VARCHAR(20) NOT NULL,
+  4  AGE NUMBER(3) CHECK (AGE>18),\
+  5  CID NUMBER(4) REFERENCES COUR(CID));
+AGE NUMBER(3) CHECK (AGE>18),\
+                             *
+ERROR at line 4:
+ORA-00911: invalid character 
+
+
+SQL> CREATE TABLE STUD(
+  2  SID NUMBER(4) PRIMARY KEY,
+  3  SNAME VARCHAR(20) NOT NULL,
+  4  AGE NUMBER(3) CHECK (AGE>18),
+  5  CID NUMBER(4) REFERENCES COUR(CID));
+
+Table created.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+STUDENT                        TABLE                                                                                                        
+COUR                           TABLE                                                                                                        
+STUD                           TABLE                                                                                                        
+
+11 rows selected.
+
+SQL> DESC STUD;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ SID                                                                           NOT NULL NUMBER(4)
+ SNAME                                                                         NOT NULL VARCHAR2(20)
+ AGE                                                                                    NUMBER(3)
+ CID                                                                                    NUMBER(4)
+
+SQL> INSERT INTO STUD
+  2  VALUES (1,'GITA',21,101);
+
+1 row created.
+
+SQL> INSERT INTO STUD
+  2  VALUES (2,'VINAY',18,101);
+INSERT INTO STUD
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C007018) violated 
+
+
+SQL> INSERT INTO STUD
+  2  VALUES (2,'VINAY',18,101);
+INSERT INTO STUD
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C007018) violated 
+
+
+SQL> INSERT INTO STUD
+  2  VALUES (3,'MAYA',22,NULL);
+
+1 row created.
+
+SQL> INSERT INTO STUD
+  2  VALUES (2,'VINAY',19,101);
+
+1 row created.
+
+SQL> INSERT INTO STUD
+  2  VALUES (4,'NILIMA',20,103);
+INSERT INTO STUD
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C007020) violated - parent key not found 
+
+
+SQL> SELECT * FROM STUD;
+
+       SID SNAME                       AGE        CID                                                                                       
+---------- -------------------- ---------- ----------                                                                                       
+         1 GITA                         21        101                                                                                       
+         3 MAYA                         22                                                                                                  
+         2 VINAY                        19        101                                                                                       
+
+SQL> SPOOL OFF

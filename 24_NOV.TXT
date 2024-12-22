@@ -1,0 +1,550 @@
+SQL> set pages 140
+SQL> set lines 140
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+STUDENT                        TABLE                                                                                                        
+COUR                           TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+STUD2                          TABLE                                                                                                        
+EXAM                           TABLE                                                                                                        
+STUD3                          TABLE                                                                                                        
+
+13 rows selected.
+
+SQL> SHOW ALL_USERS;
+appinfo is OFF and set to "SQL*Plus"
+arraysize 15
+autocommit OFF
+autoprint OFF
+autorecovery OFF
+autotrace OFF
+blockterminator "." (hex 2e)
+btitle OFF and is the first few characters of the next SELECT statement
+cmdsep OFF
+colsep " "
+compatibility version NATIVE
+concat "." (hex 2e)
+copycommit 0
+COPYTYPECHECK is ON
+define "&" (hex 26)
+describe DEPTH 1 LINENUM OFF INDENT ON
+echo OFF
+editfile "afiedt.buf"
+embedded OFF
+escape OFF
+FEEDBACK ON for 6 or more rows
+flagger OFF
+flush ON
+heading ON
+headsep "|" (hex 7c)
+instance "local"
+linesize 140
+lno 19
+loboffset 1
+logsource ""
+long 80
+longchunksize 80
+markup HTML OFF HEAD "<style type='text/css'> body {font:10pt Arial,Helvetica,sans-serif; color:black; background:White;} p {font:10pt Arial,Helvetica,sans-serif; color:black; background:White;} table,tr,td {font:10pt Arial,Helvetica,sans-serif; color:Black; background:#f7f7e7; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;} th {font:bold 10pt Arial,Helvetica,sans-serif; color:#336699; background:#cccc99; padding:0px 0px 0px 0px;} h1 {font:16pt Arial,Helvetica,Geneva,sans-serif; color:#336699; background-color:White; border-bottom:1px solid #cccc99; margin-top:0pt; margin-bottom:0pt; padding:0px 0px 0px 0px;} h2 {font:bold 10pt Arial,Helvetica,Geneva,sans-serif; color:#336699; background-color:White; margin-top:4pt; margin-bottom:0pt;} a {font:9pt Arial,Helvetica,sans-serif; color:#663300; background:#ffffff; margin-top:0pt; margin-bottom:0pt; vertical-align:top;}</style><title>SQL*Plus Report</title>" BODY "" TABLE "border='1' width='90%' align='center' summary='Script output'" SPOOL OFF ENTMAP ON PREFORMAT OFF
+newpage 1
+null ""
+numformat ""
+numwidth 10
+pagesize 140
+PAUSE is OFF
+pno 1
+recsep WRAP
+recsepchar " " (hex 20)
+release 1002000100
+repfooter OFF and is NULL
+repheader OFF and is NULL
+serveroutput OFF
+shiftinout INVISIBLE
+showmode OFF
+spool ON
+sqlblanklines OFF
+sqlcase MIXED
+sqlcode 0
+sqlcontinue "> "
+sqlnumber ON
+sqlpluscompatibility 10.2.0
+sqlprefix "#" (hex 23)
+sqlprompt "SQL> "
+sqlterminator ";" (hex 3b)
+suffix "sql"
+tab ON
+termout ON
+timing OFF
+trimout ON
+trimspool OFF
+ttitle OFF and is the first few characters of the next SELECT statement
+underline "-" (hex 2d)
+USER is "SCOTT"
+verify ON
+wrap : lines will be wrapped
+SP2-0158: unknown SHOW option "_USERS"
+SQL> SELECT *
+  2  FROM ALL_USERS;
+
+USERNAME                          USER_ID CREATED                                                                                           
+------------------------------ ---------- ---------                                                                                         
+BI                                     60 05-JAN-23                                                                                         
+PM                                     59 05-JAN-23                                                                                         
+SH                                     58 05-JAN-23                                                                                         
+IX                                     57 05-JAN-23                                                                                         
+OE                                     56 05-JAN-23                                                                                         
+HR                                     55 05-JAN-23                                                                                         
+SCOTT                                  54 30-AUG-05                                                                                         
+MGMT_VIEW                              53 30-AUG-05                                                                                         
+MDDATA                                 50 30-AUG-05                                                                                         
+SYSMAN                                 51 30-AUG-05                                                                                         
+MDSYS                                  46 30-AUG-05                                                                                         
+SI_INFORMTN_SCHEMA                     45 30-AUG-05                                                                                         
+ORDPLUGINS                             44 30-AUG-05                                                                                         
+ORDSYS                                 43 30-AUG-05                                                                                         
+OLAPSYS                                47 30-AUG-05                                                                                         
+ANONYMOUS                              39 30-AUG-05                                                                                         
+XDB                                    38 30-AUG-05                                                                                         
+CTXSYS                                 36 30-AUG-05                                                                                         
+EXFSYS                                 34 30-AUG-05                                                                                         
+WMSYS                                  25 30-AUG-05                                                                                         
+DBSNMP                                 24 30-AUG-05                                                                                         
+TSMSYS                                 21 30-AUG-05                                                                                         
+DMSYS                                  35 30-AUG-05                                                                                         
+DIP                                    19 30-AUG-05                                                                                         
+OUTLN                                  11 30-AUG-05                                                                                         
+SYSTEM                                  5 30-AUG-05                                                                                         
+SYS                                     0 30-AUG-05                                                                                         
+
+27 rows selected.
+
+SQL> GRANT SELECT ON EMP TO HR;
+
+Grant succeeded.
+
+SQL> CONN HR;
+Connected.
+SQL> SHOW USER;
+USER is "HR"
+SQL> SELECT * FROM HR;
+SELECT * FROM HR
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+REGIONS                        TABLE                                                                                                        
+COUNTRIES                      TABLE                                                                                                        
+LOCATIONS                      TABLE                                                                                                        
+DEPARTMENTS                    TABLE                                                                                                        
+JOBS                           TABLE                                                                                                        
+EMPLOYEES                      TABLE                                                                                                        
+JOB_HISTORY                    TABLE                                                                                                        
+EMP_DETAILS_VIEW               VIEW                                                                                                         
+
+8 rows selected.
+
+SQL> SELECT * FROM EMP;
+SELECT * FROM EMP
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT *
+  2  FROM SCOTT.EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+14 rows selected.
+
+SQL> INSERT INTO SCOTT.EMP(EMPNO,ENAME)
+  2  VALUES(1500,'RAM');
+INSERT INTO SCOTT.EMP(EMPNO,ENAME)
+                  *
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> GRANT ALL ON EMP TO HR;
+GRANT ALL ON EMP TO HR
+             *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> CONN SCOTT;
+Connected.
+SQL> GRANT ON EMP TO HR;
+GRANT ON EMP TO HR
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege 
+
+
+SQL> GRANT ALL ON EMP TO HR;
+
+Grant succeeded.
+
+SQL> CONN HR;
+ERROR:
+ORA-01017: invalid username/password; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn hr;
+Connected.
+SQL> SELECT * FROM SCOTT.EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+14 rows selected.
+
+SQL> INSERT INTO SCOTT.EMP(EMPNO,ENAME)
+  2  VALUES (1500,'RAM');
+
+1 row created.
+
+SQL> SELECT * FROM SCOTT.EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      1500 RAM                                                                                                                              
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+15 rows selected.
+
+SQL> CONN SCOTT;
+Connected.
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      1500 RAM                                                                                                                              
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+15 rows selected.
+
+SQL> CONN HR;
+Connected.
+SQL> SELECT *
+  2  FROM SCOTT.EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      1500 RAM                                                                                                                              
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+15 rows selected.
+
+SQL> DELETE FROM EMP
+  2  WHERE ENAME='RAM';
+DELETE FROM EMP
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DELETE FROM SCOTT.EMP
+  2  WHERE ENAME='RAM';
+
+1 row deleted.
+
+SQL> SHOW USER;
+USER is "HR"
+SQL> REVOKE ALL ON EMP FROM HR;
+REVOKE ALL ON EMP FROM HR
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> REVOKE ALL ON SCOTT.EMP FROM HR;
+REVOKE ALL ON SCOTT.EMP FROM HR
+                             *
+ERROR at line 1:
+ORA-01749: you may not GRANT/REVOKE privileges to/from yourself 
+
+
+SQL> CONN SCOTT;
+Connected.
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+14 rows selected.
+
+SQL> REVOKE ALL ON EMP FROM HR;
+
+Revoke succeeded.
+
+SQL> CONN SCOTT;
+Connected.
+SQL> show user;
+USER is "SCOTT"
+SQL> select * from scott.emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+14 rows selected.
+
+SQL> conn hr;
+Connected.
+SQL> select * from scott.emp;
+select * from scott.emp
+                    *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> CONN SYSTEM;
+Connected.
+SQL> CREATE USER ABHISHEK IDENTIFIED BY abhi;
+
+User created.
+
+SQL> GRANT CONNECT TO NEWUSER;
+GRANT CONNECT TO NEWUSER
+                 *
+ERROR at line 1:
+ORA-01917: user or role 'NEWUSER' does not exist 
+
+
+SQL> GRANT CONNECT TO ABHISHEK;
+
+Grant succeeded.
+
+SQL> GRANT ALL PRIVILEGES TO ABHISHEK;
+
+Grant succeeded.
+
+SQL> SELECT *
+  2  FROM ALL_USERS;
+
+USERNAME                          USER_ID CREATED                                                                                           
+------------------------------ ---------- ---------                                                                                         
+ABHISHEK                               61 24-NOV-24                                                                                         
+BI                                     60 05-JAN-23                                                                                         
+PM                                     59 05-JAN-23                                                                                         
+SH                                     58 05-JAN-23                                                                                         
+IX                                     57 05-JAN-23                                                                                         
+OE                                     56 05-JAN-23                                                                                         
+HR                                     55 05-JAN-23                                                                                         
+SCOTT                                  54 30-AUG-05                                                                                         
+MGMT_VIEW                              53 30-AUG-05                                                                                         
+MDDATA                                 50 30-AUG-05                                                                                         
+SYSMAN                                 51 30-AUG-05                                                                                         
+MDSYS                                  46 30-AUG-05                                                                                         
+SI_INFORMTN_SCHEMA                     45 30-AUG-05                                                                                         
+ORDPLUGINS                             44 30-AUG-05                                                                                         
+ORDSYS                                 43 30-AUG-05                                                                                         
+OLAPSYS                                47 30-AUG-05                                                                                         
+ANONYMOUS                              39 30-AUG-05                                                                                         
+XDB                                    38 30-AUG-05                                                                                         
+CTXSYS                                 36 30-AUG-05                                                                                         
+EXFSYS                                 34 30-AUG-05                                                                                         
+WMSYS                                  25 30-AUG-05                                                                                         
+DBSNMP                                 24 30-AUG-05                                                                                         
+TSMSYS                                 21 30-AUG-05                                                                                         
+DMSYS                                  35 30-AUG-05                                                                                         
+DIP                                    19 30-AUG-05                                                                                         
+OUTLN                                  11 30-AUG-05                                                                                         
+SYSTEM                                  5 30-AUG-05                                                                                         
+SYS                                     0 30-AUG-05                                                                                         
+
+28 rows selected.
+
+SQL> CONN ABHISHEK;
+Connected.
+SQL> SELECT * FROM TAB;
+
+no rows selected
+
+SQL> CREATE TABLE COLLAGE(
+  2  CID NUMBER(3) PRIMARY KEY,
+  3  CGNAME VARCHAR(15) NOT NULL,
+  4  RNO NUMBER(3) NOT NULL UNIQUE;
+RNO NUMBER(3) NOT NULL UNIQUE
+                            *
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL> 
+SQL> CREATE TABLE COLLAGE(
+  2  CID NUMBER(3) PRIMARY KEY,
+  3  CGNAME VARCHAR(15) NOT NULL,
+  4  RNO NUMBER(3) UNIQUE NOT NULL;
+RNO NUMBER(3) UNIQUE NOT NULL
+                            *
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL>  CREATE TABLE COLLAGE(
+  2   CID NUMBER(3) PRIMARY KEY,
+  3   CGNAME VARCHAR(15) NOT NULL,
+  4   RNO NUMBER(3) NOT NULL UNIQUE);
+
+Table created.
+
+SQL> DESC COLLAGE;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ CID                                                                           NOT NULL NUMBER(3)
+ CGNAME                                                                        NOT NULL VARCHAR2(15)
+ RNO                                                                           NOT NULL NUMBER(3)
+
+SQL> CONN SYSTEM;
+Connected.
+SQL> DROP USER ABHISHEK CASCADE;
+
+User dropped.
+
+SQL> SELECT *
+  2  FROM ALL_USERS;
+
+USERNAME                          USER_ID CREATED                                                                                           
+------------------------------ ---------- ---------                                                                                         
+BI                                     60 05-JAN-23                                                                                         
+PM                                     59 05-JAN-23                                                                                         
+SH                                     58 05-JAN-23                                                                                         
+IX                                     57 05-JAN-23                                                                                         
+OE                                     56 05-JAN-23                                                                                         
+HR                                     55 05-JAN-23                                                                                         
+SCOTT                                  54 30-AUG-05                                                                                         
+MGMT_VIEW                              53 30-AUG-05                                                                                         
+MDDATA                                 50 30-AUG-05                                                                                         
+SYSMAN                                 51 30-AUG-05                                                                                         
+MDSYS                                  46 30-AUG-05                                                                                         
+SI_INFORMTN_SCHEMA                     45 30-AUG-05                                                                                         
+ORDPLUGINS                             44 30-AUG-05                                                                                         
+ORDSYS                                 43 30-AUG-05                                                                                         
+OLAPSYS                                47 30-AUG-05                                                                                         
+ANONYMOUS                              39 30-AUG-05                                                                                         
+XDB                                    38 30-AUG-05                                                                                         
+CTXSYS                                 36 30-AUG-05                                                                                         
+EXFSYS                                 34 30-AUG-05                                                                                         
+WMSYS                                  25 30-AUG-05                                                                                         
+DBSNMP                                 24 30-AUG-05                                                                                         
+TSMSYS                                 21 30-AUG-05                                                                                         
+DMSYS                                  35 30-AUG-05                                                                                         
+DIP                                    19 30-AUG-05                                                                                         
+OUTLN                                  11 30-AUG-05                                                                                         
+SYSTEM                                  5 30-AUG-05                                                                                         
+SYS                                     0 30-AUG-05                                                                                         
+
+27 rows selected.
+
+SQL> SPOOL OFF

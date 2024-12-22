@@ -1,0 +1,164 @@
+SQL> CREATE TABLE STUD2(
+  2  SNAME VARCHAR(20),
+  3  CID NUMBER (4) REFERENCES COUR(CID),
+  4  COID NUMBER (4) REFERENCES COUR(CID));
+
+Table created.
+
+SQL> DESC STUD2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SNAME                                              VARCHAR2(20)
+ CID                                                NUMBER(4)
+ COID                                               NUMBER(4)
+
+SQL> SELECT * FROM COUR;
+
+       CID CNAME                TNAME                                           
+---------- -------------------- -------------------------                       
+       101 JAVA                 RAVEESH                                         
+       102 WEB                  KISHORE                                         
+
+SQL> --CREATION OF ANOTHER TABLE
+SQL> CREATE TABLE EXAM(
+  2  CID NUMBER(5) PRIMARY KEY,
+  3  ENAME VARCHAR(20));
+
+Table created.
+
+SQL> INSERT INTO EXAM VALUES (1001,'JAVA-MOCK');
+
+1 row created.
+
+SQL> INSERT INTO EXAM VALUES (1002,'WEB-MOCK');
+
+1 row created.
+
+SQL> INSERT INTO EXAM VALUES (1003,'SQL-MOCK');
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM EXAM;
+
+       CID ENAME                                                                
+---------- --------------------                                                 
+      1001 JAVA-MOCK                                                            
+      1002 WEB-MOCK                                                             
+      1003 SQL-MOCK                                                             
+
+SQL> --- CREATE OF CHILD TABLE
+SQL> CREATE TABLE STUD(
+  2  SID NUMBER(4) PRIMARY KEY,
+  3  SNAME VARCHAR (20) NOT NULL,
+  4  AGE NUMBER (3) CHECK (AGE>=19),
+  5  CID NUMBER (4) REFERENCES COUR(CID),
+  6  EID NUMBER (5) REFERENCES EXAM(EID));
+CREATE TABLE STUD(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+BONUS                          TABLE                                            
+SALGRADE                       TABLE                                            
+COLLAGE                        TABLE                                            
+CSTUD                          TABLE                                            
+WORKER                         TABLE                                            
+PRODUCT                        TABLE                                            
+STUDENT                        TABLE                                            
+COUR                           TABLE                                            
+STUD                           TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+STUD2                          TABLE                                            
+EXAM                           TABLE                                            
+
+13 rows selected.
+
+SQL> SET PAGES 140
+SQL> SET LINES 140
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+STUDENT                        TABLE                                                                                                        
+COUR                           TABLE                                                                                                        
+STUD                           TABLE                                                                                                        
+STUD2                          TABLE                                                                                                        
+EXAM                           TABLE                                                                                                        
+
+13 rows selected.
+
+SQL> SELECT * FROM STUD;
+
+no rows selected
+
+SQL>  CREATE TABLE STUD3 (
+  2   SID NUMBER(4) PRIMARY KEY,
+  3   SNAME VARCHAR (20) NOT NULL,
+  4   AGE NUMBER (3) CHECK (AGE>=19),
+  5   CID NUMBER (4) REFERENCES COUR(CID),
+  6   EID NUMBER (5) REFERENCES EXAM(EID));
+ EID NUMBER (5) REFERENCES EXAM(EID))
+                                *
+ERROR at line 6:
+ORA-00904: "EID": invalid identifier 
+
+
+SQL> CREATE TABLE STUD3 (
+  2  SID NUMBER(4) PRIMARY KEY,
+  3  SNAME VARCHAR (20) NOT NULL,
+  4  AGE NUMBER (3) CHECK (AGE>=19),
+  5  CID NUMBER (4) REFERENCES COUR(CID),
+  6  EID NUMBER (5) REFERENCES EXAM(CID));
+
+Table created.
+
+SQL> DESC STUD3;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ SID                                                                           NOT NULL NUMBER(4)
+ SNAME                                                                         NOT NULL VARCHAR2(20)
+ AGE                                                                                    NUMBER(3)
+ CID                                                                                    NUMBER(4)
+ EID                                                                                    NUMBER(5)
+
+SQL> INSERT INTO STUD3
+  2  VALUES(1,'RAM',20,101,1001);
+
+1 row created.
+
+SQL> SELECT * FROM STUD3;
+
+       SID SNAME                       AGE        CID        EID                                                                            
+---------- -------------------- ---------- ---------- ----------                                                                            
+         1 RAM                          20        101       1001                                                                            
+
+SQL> INSERT INTO STUD3
+  2  VALUES(2,'MITA',22,103,NULL);
+INSERT INTO STUD3
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C007036) violated - parent key not found 
+
+
+SQL> SPOOL OFF

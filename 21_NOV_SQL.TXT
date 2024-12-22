@@ -1,0 +1,456 @@
+SQL> set pages 140
+SQL> set lines 140
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+STUDENT                        TABLE                                                                                                        
+COUR                           TABLE                                                                                                        
+STUD                           TABLE                                                                                                        
+STUD2                          TABLE                                                                                                        
+EXAM                           TABLE                                                                                                        
+STUD3                          TABLE                                                                                                        
+
+14 rows selected.
+
+SQL> CREATE TABLE DOCTOR (
+  2  DID NUMBER(4) PRIMARY KEY,
+  3  REDGNO NUMBER(10) UNIQUE NOT NULL,
+  4  NAME VARCHAR(20),
+  5  AGE NUMBER(3) DEFAULT(35) CHECK(AGE<40));
+
+Table created.
+
+SQL> INSERT INTO DOCTOR
+  2  VALUES (1,1001,'MITA',39);
+
+1 row created.
+
+SQL> SELECT * FROM DOCTOR;
+
+       DID     REDGNO NAME                        AGE                                                                                       
+---------- ---------- -------------------- ----------                                                                                       
+         1       1001 MITA                         39                                                                                       
+
+SQL> INSERT INTO DOCTOR
+  2  VALUES (2,1001,'MITA',38);
+INSERT INTO DOCTOR
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C007050) violated 
+
+
+SQL> INSERT INTO DOCTOR(DID)
+  2  VALUES (2);
+INSERT INTO DOCTOR(DID)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."DOCTOR"."REDGNO") 
+
+
+SQL> INSERT INTO DOCTOR (DID,REGNO,NAME)
+  2  VALUES (2,1002,'NILIMA');
+INSERT INTO DOCTOR (DID,REGNO,NAME)
+                        *
+ERROR at line 1:
+ORA-00904: "REGNO": invalid identifier 
+
+
+SQL> SELECT * FROM DOCTOR;
+
+       DID     REDGNO NAME                        AGE                                                                                       
+---------- ---------- -------------------- ----------                                                                                       
+         1       1001 MITA                         39                                                                                       
+
+SQL> INSERT INTO DOCTOR (DID,REDGNO,NAME)
+  2   VALUES (2,1002,'NILIMA');
+
+1 row created.
+
+SQL> SELECT * FROM DOCTOR;
+
+       DID     REDGNO NAME                        AGE                                                                                       
+---------- ---------- -------------------- ----------                                                                                       
+         1       1001 MITA                         39                                                                                       
+         2       1002 NILIMA                       35                                                                                       
+
+SQL> INSERT INTO DOCTOR VALUES (3,1003,'MALA',30);
+
+1 row created.
+
+SQL> INSERT INTO DOCTOR VALUES (4,1004,NULL,NULL);
+
+1 row created.
+
+SQL> SELECT * FROM DOCTOR;
+
+       DID     REDGNO NAME                        AGE                                                                                       
+---------- ---------- -------------------- ----------                                                                                       
+         1       1001 MITA                         39                                                                                       
+         2       1002 NILIMA                       35                                                                                       
+         3       1003 MALA                         30                                                                                       
+         4       1004                                                                                                                       
+
+SQL> -- CREATION OF TABLE
+SQL> CREATE TABLE HOSPITAL(
+  2  HNAME VARCHAR (20),
+  3  REGNO NUMBER(10) REFERENCES DOCTOR (REDGNO));
+
+Table created.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+STUDENT                        TABLE                                                                                                        
+COUR                           TABLE                                                                                                        
+STUD                           TABLE                                                                                                        
+STUD2                          TABLE                                                                                                        
+EXAM                           TABLE                                                                                                        
+STUD3                          TABLE                                                                                                        
+DOCTOR                         TABLE                                                                                                        
+HOSPITAL                       TABLE                                                                                                        
+
+16 rows selected.
+
+SQL> DESC HOSPITAL;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ HNAME                                                                                  VARCHAR2(20)
+ REGNO                                                                                  NUMBER(10)
+
+SQL> -- ALTER (ADD) DDL
+SQL> --WITHOUT CONSTRAINTS
+SQL> ALTER TABLE COUR
+  2  ADD FEES NUMBER(7,2);
+
+Table altered.
+
+SQL> SELECT * FROM COUR;
+
+       CID CNAME                TNAME                           FEES                                                                        
+---------- -------------------- ------------------------- ----------                                                                        
+       101 JAVA                 RAVEESH                                                                                                     
+       102 WEB                  KISHORE                                                                                                     
+
+SQL> DESC COUR;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ CID                                                                           NOT NULL NUMBER(4)
+ CNAME                                                                                  VARCHAR2(20)
+ TNAME                                                                                  VARCHAR2(25)
+ FEES                                                                                   NUMBER(7,2)
+
+SQL> UPDATE COUR
+  2  SET FEES =3500;
+
+2 rows updated.
+
+SQL> SELECT * FROM COUR;
+
+       CID CNAME                TNAME                           FEES                                                                        
+---------- -------------------- ------------------------- ----------                                                                        
+       101 JAVA                 RAVEESH                         3500                                                                        
+       102 WEB                  KISHORE                         3500                                                                        
+
+SQL> ALTER TABLE HOSPITAL
+  2  ADD HID NUMBER(4) PRIMARY KEY;
+
+Table altered.
+
+SQL> ALTER TABLE PRODUCT
+  2  ADD MDATE DATE NOT NULL;
+ALTER TABLE PRODUCT
+            *
+ERROR at line 1:
+ORA-01758: table must be empty to add mandatory (NOT NULL) column 
+
+
+SQL> ALTER TABLE PROD
+  2  ADD PID NUMBER(4) PRIMARY KEY;
+ALTER TABLE PROD
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> ALTER TABLE PRODUCT
+  2  ADD EDATE DATE DEFAULT('18-JAN-2026');
+
+Table altered.
+
+SQL> SELECT * FROM PRODUCT;
+
+PNAME                     PRICE EXDATE    EDATE                                                                                             
+-------------------- ---------- --------- ---------                                                                                         
+CHOCOLATE                   150 15-JAN-24 18-JAN-26                                                                                         
+CHOCOLATE                120.25 17-DEC-24 18-JAN-26                                                                                         
+CHIPS                    100.25 21-NOV-23 18-JAN-26                                                                                         
+ICE CREAM                   180 19-MAR-22 18-JAN-26                                                                                         
+ICE CREAM                   180           18-JAN-26                                                                                         
+
+SQL> ALTER TABLE HOSPITAL
+  2  ADD DID NUMBER(4) REFERENCES DOCTOR(DID);
+
+Table altered.
+
+SQL> SELECT * FROM HOSPITAL;
+
+no rows selected
+
+SQL> DESC HOSPITAL;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ HNAME                                                                                  VARCHAR2(20)
+ REGNO                                                                                  NUMBER(10)
+ HID                                                                           NOT NULL NUMBER(4)
+ DID                                                                                    NUMBER(4)
+
+SQL> ALTER TABLE COUR
+  2  DROP COLUMN FEES;
+
+Table altered.
+
+SQL> SELECT * FROM COUR;
+
+       CID CNAME                TNAME                                                                                                       
+---------- -------------------- -------------------------                                                                                   
+       101 JAVA                 RAVEESH                                                                                                     
+       102 WEB                  KISHORE                                                                                                     
+
+SQL> ALTER TABLE DOCTOR
+  2  DROP COLUMN REGDNO;
+DROP COLUMN REGDNO
+            *
+ERROR at line 2:
+ORA-00904: "REGDNO": invalid identifier 
+
+
+SQL> ALTER TABLE DOCTOR
+  2  DROP COLUMN REGNO;
+DROP COLUMN REGNO
+            *
+ERROR at line 2:
+ORA-00904: "REGNO": invalid identifier 
+
+
+SQL> SELECT * FROM DOCTOR;
+
+       DID     REDGNO NAME                        AGE                                                                                       
+---------- ---------- -------------------- ----------                                                                                       
+         1       1001 MITA                         39                                                                                       
+         2       1002 NILIMA                       35                                                                                       
+         3       1003 MALA                         30                                                                                       
+         4       1004                                                                                                                       
+
+SQL> ALTER TABLE DOCTOR
+  2  DROP COLUMN REDGNO;
+DROP COLUMN REDGNO
+            *
+ERROR at line 2:
+ORA-12992: cannot drop parent key column 
+
+
+SQL> ALTER TABLE HOSPITAL
+  2  DROP COLUMN REGNO;
+
+Table altered.
+
+SQL> SELECT * FROM HOSPITAL;
+
+no rows selected
+
+SQL> DESC HOSPITAL;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ HNAME                                                                                  VARCHAR2(20)
+ HID                                                                           NOT NULL NUMBER(4)
+ DID                                                                                    NUMBER(4)
+
+SQL> -- ALTER (RENAME)
+SQL> ALTER TABLE HOSPITAL
+  2  MODIFY HNAME NUMBER(5);
+
+Table altered.
+
+SQL> SELECT * FROM HOSPITAL;
+
+no rows selected
+
+SQL> DESC HOSPITAL;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ HNAME                                                                                  NUMBER(5)
+ HID                                                                           NOT NULL NUMBER(4)
+ DID                                                                                    NUMBER(4)
+
+SQL> ALTER TABLE PROD
+  2  MODIFY PNAME NUMBER(20);
+ALTER TABLE PROD
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> ALTER TABLE PROD
+  2  MODIFY PNAME NUMBER(20);
+ALTER TABLE PROD
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT * FROM PROD;
+SELECT * FROM PROD
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                       
+
+14 rows selected.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+CSTUD                          TABLE                                                                                                        
+WORKER                         TABLE                                                                                                        
+PRODUCT                        TABLE                                                                                                        
+STUDENT                        TABLE                                                                                                        
+COUR                           TABLE                                                                                                        
+STUD                           TABLE                                                                                                        
+STUD2                          TABLE                                                                                                        
+EXAM                           TABLE                                                                                                        
+STUD3                          TABLE                                                                                                        
+DOCTOR                         TABLE                                                                                                        
+HOSPITAL                       TABLE                                                                                                        
+
+16 rows selected.
+
+SQL> SELECT * FROM PRODUCT;
+
+PNAME                     PRICE EXDATE    EDATE                                                                                             
+-------------------- ---------- --------- ---------                                                                                         
+CHOCOLATE                   150 15-JAN-24 18-JAN-26                                                                                         
+CHOCOLATE                120.25 17-DEC-24 18-JAN-26                                                                                         
+CHIPS                    100.25 21-NOV-23 18-JAN-26                                                                                         
+ICE CREAM                   180 19-MAR-22 18-JAN-26                                                                                         
+ICE CREAM                   180           18-JAN-26                                                                                         
+
+SQL> ALTER TABLE PRODUCT
+  2  MODIFY PNAME NUMBER(20);
+MODIFY PNAME NUMBER(20)
+       *
+ERROR at line 2:
+ORA-01439: column to be modified must be empty to change datatype 
+
+
+SQL> ALTER TABLE PRODUCT
+  2  MODIFY PNAME VARCHAR(25);
+
+Table altered.
+
+SQL> DESC PRODUCT;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ PNAME                                                                         NOT NULL VARCHAR2(25)
+ PRICE                                                                                  NUMBER(6,2)
+ EXDATE                                                                                 DATE
+ EDATE                                                                                  DATE
+
+SQL> ALTER TABLE PRODUCT
+  2  MODIFY PNAME VARCHAR(2);
+MODIFY PNAME VARCHAR(2)
+       *
+ERROR at line 2:
+ORA-01441: cannot decrease column length because some value is too big 
+
+
+SQL> ALTER TABLE PRODUCT
+  2  MODIFY PNAME VARCHAR(9);
+
+Table altered.
+
+SQL> DESC PRODUCT;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ PNAME                                                                         NOT NULL VARCHAR2(9)
+ PRICE                                                                                  NUMBER(6,2)
+ EXDATE                                                                                 DATE
+ EDATE                                                                                  DATE
+
+SQL> DESC HOSPITAL;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ HNAME                                                                                  NUMBER(5)
+ HID                                                                           NOT NULL NUMBER(4)
+ DID                                                                                    NUMBER(4)
+
+SQL> ---WITH CONSTRAINTS
+SQL> ALTER TABLE HOSPITAL
+  2  MODIFY HNAME VARCHAR(5) NOT NULL;
+
+Table altered.
+
+SQL> DESC PRODUCT
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ PNAME                                                                         NOT NULL VARCHAR2(9)
+ PRICE                                                                                  NUMBER(6,2)
+ EXDATE                                                                                 DATE
+ EDATE                                                                                  DATE
+
+SQL> ALTER TABLE PRODUCT
+  2  MODIFY PRICE NUMBER(6,2) NOT NULL;
+
+Table altered.
+
+SQL> DESC PRODUCT;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ PNAME                                                                         NOT NULL VARCHAR2(9)
+ PRICE                                                                         NOT NULL NUMBER(6,2)
+ EXDATE                                                                                 DATE
+ EDATE                                                                                  DATE
+
+SQL> SPOOL OFF

@@ -1,0 +1,114 @@
+SQL> SET PAGES 140
+SQL> SET LINES 140
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                           
+------------------------------ ------- ----------                                                                                           
+DEPT                           TABLE                                                                                                        
+EMP                            TABLE                                                                                                        
+BONUS                          TABLE                                                                                                        
+SALGRADE                       TABLE                                                                                                        
+COLLAGE                        TABLE                                                                                                        
+
+SQL> SELECT * FROM COLLAGE;
+
+no rows selected
+
+SQL> INSERT INTO COLLAGE VALUES (102,'CEB','BBSR','BPUT');
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> INSERT INTO COLLAGE VALUES (103,'SILLICON','BBSR','SELF');
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> INSERT INTO COLLAGE VALUES (104,'TRIDENT','BBSR','BPUT');
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM COLLAGE;
+
+      CGNO CGNAME          LOCATION       BOARD                                                                                             
+---------- --------------- -------------- --------                                                                                          
+       102 CEB             BBSR           BPUT                                                                                              
+       103 SILLICON        BBSR           SELF                                                                                              
+       104 TRIDENT         BBSR           BPUT                                                                                              
+
+SQL> INSERT INTO COLLAGE
+  2  VALUES (101,'KOUSTAV','BBSR','BPUT');
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM COLLAGE;
+
+      CGNO CGNAME          LOCATION       BOARD                                                                                             
+---------- --------------- -------------- --------                                                                                          
+       102 CEB             BBSR           BPUT                                                                                              
+       103 SILLICON        BBSR           SELF                                                                                              
+       104 TRIDENT         BBSR           BPUT                                                                                              
+       101 KOUSTAV         BBSR           BPUT                                                                                              
+
+SQL>  CREATE TABLE CSTUD(
+  2  ID NUMBER(5) PRIMARY KEY,
+  3  NAME VARCHAR(15) NOT NULL,
+  4  BRANCH VARCHAR(8),
+  5  ADDRESS VARCHAR(15),
+  6   PHONE NUMBER(10) UNIQUE NOT NULL,
+  7  CGNO NUMBER(4) REFERENCES COLLAGE(CGNO));
+
+Table created.
+
+SQL> SELECT * FROM CSTUD;
+
+no rows selected
+
+SQL> DESC CSTUD;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ ID                                                                            NOT NULL NUMBER(5)
+ NAME                                                                          NOT NULL VARCHAR2(15)
+ BRANCH                                                                                 VARCHAR2(8)
+ ADDRESS                                                                                VARCHAR2(15)
+ PHONE                                                                         NOT NULL NUMBER(10)
+ CGNO                                                                                   NUMBER(4)
+
+SQL> INSERT INTO CSTUD
+  2  VALUES (1901,'SUVENDU','EE','CTC',9861160890,102);
+
+1 row created.
+
+SQL> SELECT * FROM CSTUD;
+
+        ID NAME            BRANCH   ADDRESS              PHONE       CGNO                                                                   
+---------- --------------- -------- --------------- ---------- ----------                                                                   
+      1901 SUVENDU         EE       CTC             9861160890        102                                                                   
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> INSERT INTO CSTUD
+  2  VALUES (1802,'ANKIT','EE','CKPUR',9937113799,106);
+INSERT INTO CSTUD
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C006987) violated - parent key not found 
+
+
+SQL> SPOOL OFF
